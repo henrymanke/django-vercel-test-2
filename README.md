@@ -41,56 +41,6 @@ The corresponding `WSGI_APPLICATION` setting is configured to use the `app` vari
 WSGI_APPLICATION = 'api.wsgi.app'
 ```
 
-There is a single view which renders the current time in `example/views.py`:
-
-```python
-# example/views.py
-from datetime import datetime
-
-from django.http import HttpResponse
-
-
-def index(request):
-    now = datetime.now()
-    html = f'''
-    <html>
-        <body>
-            <h1>Hello from Vercel!</h1>
-            <p>The current time is { now }.</p>
-        </body>
-    </html>
-    '''
-    return HttpResponse(html)
-```
-
-This view is exposed a URL through `example/urls.py`:
-
-```python
-# example/urls.py
-from django.urls import path
-
-from example.views import index
-
-
-urlpatterns = [
-    path('', index),
-]
-```
-
-Finally, it's made accessible to the Django server inside `api/urls.py`:
-
-```python
-# api/urls.py
-from django.urls import path, include
-
-urlpatterns = [
-    ...
-    path('', include('example.urls')),
-]
-```
-
-This example uses the Web Server Gateway Interface (WSGI) with Django to enable handling requests on Vercel with Serverless Functions.
-
 ## Running Locally
 
 ```bash
